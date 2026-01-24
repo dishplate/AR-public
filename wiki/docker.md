@@ -12,15 +12,22 @@ https://docs.docker.com/reference/cli/docker/
 - docker images. Shows images. You can use wildcards to help search for what you need.
     - docker images h*
 - docker rmi. Deletes images.
-## Running containters
+## Running containers
 - docker run -d hello-world. This runs in detached mode. Your terminal is free to do other things.
 - docker ps -a (list all containers, even ones not running)
 - docker stop "container ID" or name of container
 - docker remove "container ID". Removes the container.
-- docker exec -it <container ID> /bin/bash 
+- docker exec -it "container ID" /bin/bash 
 
 
 ## Notes
-- Containers are run from an image
+- A container is a runtime instance of an image.
+    - You can have two isolated containers derived from the same image, eg. dev and prod.
+    - They are epemeral, portable and isolated.
 - An image can be used to create any number of containers
+    - Images are immutable
 - Containers cannot be modified when they are running, if you need to store data, you have to map an external storage to the container as you would any Linux system.
+
+## Docker file
+ - run - happens at build time (to the image)
+ - CMD - happens at container runtime (to the container)
