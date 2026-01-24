@@ -1,6 +1,7 @@
 # VSCode config on Mac
 
 1. Setup your VM with VMware Fusion, it's free on broadcom's website
+    See: https://github.com/dishplate/AR-public/blob/main/wiki/Vmware-fusion-on-Mac-(with-Apple-Silicon).md
 2. Install SSH server
     sudo apt update && sudo apt upgrade && sudo install openssh-server
 
