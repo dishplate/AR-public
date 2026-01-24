@@ -4,17 +4,20 @@ Follow the installation on docker's website
 
 ## Commands
 https://docs.docker.com/reference/cli/docker/
-- docker pull image name - This pulls an image from the default registry, docker hub. To pull from a different registry:
+## Images
+- docker pull "image name" - This pulls an image from the default registry, docker hub. To pull from a different registry:
 
 - docker image pull myregistry.local:5000/testing/test-image
 - docker pull hello-world
-- docker run -d hello-world. This runs in detached mode. Your terminal is free to do other things.
-- docker ps -a (list all containers, even ones not running)
-- docker stop container ID or name of container
-- docker remove container ID. Removes the container.
 - docker images. Shows images. You can use wildcards to help search for what you need.
     - docker images h*
 - docker rmi. Deletes images.
+## Running containters
+- docker run -d hello-world. This runs in detached mode. Your terminal is free to do other things.
+- docker ps -a (list all containers, even ones not running)
+- docker stop "container ID" or name of container
+- docker remove "container ID". Removes the container.
+- docker exec -it <container ID> /bin/bash 
 
 
 ## Notes
