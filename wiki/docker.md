@@ -6,8 +6,8 @@ Follow the installation on docker's website
 https://docs.docker.com/reference/cli/docker/
 - docker pull image name - This pulls an image from the default registry, docker hub. To pull from a different registry:
 
-    - docker image pull myregistry.local:5000/testing/test-image
-    - docker pull hello-world
+`docker image pull myregistry.local:5000/testing/test-image`
+`docker pull hello-world`
 
 
 ## Notes
