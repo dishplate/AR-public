@@ -24,9 +24,9 @@ https://docs.docker.com/reference/cli/docker/
 - docker ps -a (list all containers, even ones not running)
 - docker stop "container ID" or name of container
 - docker remove "container ID". Removes the container.
-- docker exec -it "container ID" /bin/bash 
+- docker exec -it "container ID" -c "uname -a".  #runs a command in a working container
 - docker build -t my-nginx .  #Dockerfile in the current directory
-- docker run -d -p 80:80 my-nginx:latest 
+- docker run -d -p 80:80 my-nginx:latest # docker host:container port
 
 ## Notes
 - A container is a runtime instance of an image.
