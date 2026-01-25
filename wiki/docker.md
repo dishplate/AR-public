@@ -3,7 +3,7 @@
 ## Quick Dockerfile config
     FROM nginx
     WORKDIR /app
-    COPY COPY ./index.html /usr/share/nginx/html/index.html #nginx default page modification
+    COPY ./index.html /usr/share/nginx/html/index.html #nginx default page modification
 
 
 ## Installation
