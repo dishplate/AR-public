@@ -1,9 +1,9 @@
 # Docker notes (Applies to Podman too)
 
 ## Quick Dockerfile config
-FROM nginx
-WORKDIR /app
-COPY COPY ./index.html /usr/share/nginx/html/index.html #nginx default page modification
+    FROM nginx
+    WORKDIR /app
+    COPY COPY ./index.html /usr/share/nginx/html/index.html #nginx default page modification
 
 
 ## Installation
