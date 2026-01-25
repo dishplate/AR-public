@@ -1,4 +1,11 @@
 # Docker notes (Applies to Podman too)
+
+## Quick Dockerfile config
+FROM nginx
+WORKDIR /app
+COPY COPY ./index.html /usr/share/nginx/html/index.html #nginx default page modification
+
+
 ## Installation
 Follow the installation on docker's website
 
@@ -18,7 +25,8 @@ https://docs.docker.com/reference/cli/docker/
 - docker stop "container ID" or name of container
 - docker remove "container ID". Removes the container.
 - docker exec -it "container ID" /bin/bash 
-
+- docker build -t my-nginx .  #Dockerfile in the current directory
+- docker run -d -p 80:80 my-nginx:latest 
 
 ## Notes
 - A container is a runtime instance of an image.
@@ -31,3 +39,4 @@ https://docs.docker.com/reference/cli/docker/
 ## Docker file
  - run - happens at build time (to the image)
  - CMD - happens at container runtime (to the container)
+
