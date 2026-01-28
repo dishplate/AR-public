@@ -30,7 +30,7 @@ https://docs.docker.com/reference/cli/docker/
 
 - docker build -t my-nginx .  #Dockerfile in the current directory
 ## Docker run
-- docker run --name my-container <image>
+- docker run --name my-container *image*
 - docker run -d -p 80:80 my-nginx:latest # docker host:container port
 
 
