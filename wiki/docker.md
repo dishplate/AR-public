@@ -21,12 +21,18 @@ https://docs.docker.com/reference/cli/docker/
 - docker rmi. Deletes images.
 ## Running containers
 - docker run -d hello-world. This runs in detached mode. Your terminal is free to do other things.
+
 - docker ps -a (list all containers, even ones not running)
 - docker stop "container ID" or name of container
 - docker remove "container ID". Removes the container.
+
 - docker exec -it "container ID" -c "uname -a".  #runs a command in a working container
+
 - docker build -t my-nginx .  #Dockerfile in the current directory
+## Docker run
+- docker run --name my-container <image>
 - docker run -d -p 80:80 my-nginx:latest # docker host:container port
+
 
 ## Notes
 - A container is a runtime instance of an image.
@@ -40,3 +46,4 @@ https://docs.docker.com/reference/cli/docker/
  - run - happens at build time (to the image)
  - CMD - happens at container runtime (to the container)
 
+## Docker 
