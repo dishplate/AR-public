@@ -24,7 +24,7 @@ https://docs.docker.com/reference/cli/docker/
 
 - docker ps -a (list all containers, even ones not running)
 - docker stop "container ID" or name of container
-- docker remove "container ID". Removes the container.
+- docker rm "container ID". Removes the container.
 
 - docker exec -it "container ID" -c "uname -a".  #runs a command in a working container
 
