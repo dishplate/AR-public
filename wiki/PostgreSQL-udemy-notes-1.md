@@ -12,6 +12,26 @@ Download and install pgadmin4 for MacOS. Setting up pgadmin4 for Ubuntu on ARM d
 - nmap -p 5432 10.x.x.x
 - Open pgadmin4 and connect to the ip with default username postgress and the password you set above in the - - - docker run command.
 
+## Your first table
+>
+>> CREATE TABLE cities (
+		name VARCHAR(50),
+		country VARCHAR(50),
+		population VARCHAR(50),
+		area INTEGER
+);
+
+### Breakdown
+- CREATE TABLE is the keyword
+Keywords tell the database that we want to do something
+- cities is the identifier
+Tell the database what thing we want to act on. Always written in lowercase letters.
+
+
+
+
+
+
 
 ## Old notes from another course below
 ```
