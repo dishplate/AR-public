@@ -1,6 +1,6 @@
 # Udemy Course: SQL and PostgreSQL: The Complete Developer's Guide
 
-Setup PostgreSQL docker
+## Setup PostgreSQL docker
 
 Download and install pgadmin4 for MacOS. Setting up pgadmin4 for Ubuntu on ARM doesn't work.
 
@@ -21,7 +21,7 @@ CREATE TABLE cities (
 	area INTEGER
 );
 ```
-### Breakdown
+### Explanation
 - CREATE TABLE is the keyword
 Keywords tell the database that we want to do something
 - cities is the identifier
