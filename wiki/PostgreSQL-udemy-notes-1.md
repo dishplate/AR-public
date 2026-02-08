@@ -1,3 +1,19 @@
+# Udemy Course: SQL and PostgreSQL: The Complete Developer's Guide
+
+Setup PostgreSQL docker
+
+Download and install pgadmin4 for MacOS. Setting up pgadmin4 for Ubuntu on ARM doesn't work.
+
+## On the system with docker
+- Docker Hub: https://hub.docker.com/_/postgres/
+- docker pull postgress
+- docker run --name postgres_container -e POSTGRES_PASSWORD=some-password -d -p 5432:5432 postgres
+- Once installed, use nmap to check that the MacOS can see the VM running docker and the postgres port
+- nmap -p 5432 10.x.x.x
+- Open pgadmin4 and connect to the ip with default username postgress and the password you set above in the - - - docker run command.
+
+
+## Old notes from another course below
 ```
 Tables contain columns and rows or fields and rows
 
@@ -72,18 +88,6 @@ SELECT * FROM actors;
 
 
 ```
-# Udemy Course: SQL and PostgreSQL: The Complete Developer's Guide
 
-Setup PostgreSQL docker
-
-Download and install pgadmin4 for MacOS. Setting up pgadmin4 for Ubuntu on ARM doesn't work.
-
-## On the system with docker
-- Docker Hub: https://hub.docker.com/_/postgres/
-- docker pull postgress
-- docker run --name postgres_container -e POSTGRES_PASSWORD=some-password -d -p 5432:5432 postgres
-- Once installed, use nmap to check that the MacOS can see the VM running docker and the postgres port
-- nmap -p 5432 10.x.x.x
-- Open pgadmin4 and connect to the ip with default username postgress and the password you set above in the - - - docker run command.
 
 
