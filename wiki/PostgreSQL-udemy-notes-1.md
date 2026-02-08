@@ -78,8 +78,8 @@ Setup PostgreSQL docker
 
 Download and install pgadmin4 for MacOS. Setting up pgadmin4 for Ubuntu on ARM doesn't work.
 
-On the system with docker
-	Docker Hub: https://hub.docker.com/_/postgres/
+> On the system with docker
+>>	Docker Hub: https://hub.docker.com/_/postgres/
 	docker pull postgress
 	docker run --name postgres_container -e POSTGRES_PASSWORD=some-password -d -p 5432:5432 postgres
 	Once installed, use nmap to check that the MacOS can see the VM running docker and the postgres port
