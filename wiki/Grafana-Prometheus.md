@@ -35,3 +35,10 @@ global:
 docker run -d   --name grafana   -p 3000:3000   -v grafana-data:/var/lib/grafana  grafana/grafana:latest
 ### Launch the prometheus container
 docker run -d -p 9090:9090 prom/prometheus:latest
+
+## Installing loki
+~~~
+docker run -d --name=loki --mount source=loki-data,target=/loki -p 3100:3100 grafana/loki
+~~~
+You can test by going to http://ip_address:3100/ready
+you should see ready after a few seconds
