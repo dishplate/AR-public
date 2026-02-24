@@ -23,9 +23,25 @@ CREATE TABLE cities (
 ```
 ### Explanation
 - CREATE TABLE is the keyword
-Keywords tell the database that we want to do something
-- cities is the identifier
+Keywords tell the database that we want to do something. Always CAPITALIZED.
+- cities is the identifier. Tell the database what thing we want to act on. Always lowercase.
 Tell the database what thing we want to act on. Always written in lowercase letters.
+
+## Exercise - creating a table, inserting values and retreiving the data
+CREATE TABLE movies (
+    title VARCHAR(60),
+    box_office INTEGER
+);
+
+INSERT INTO movies (title, box_office)
+VALUES 
+    ('The Avengers', 1500000000),
+    ('Batman v Superman', 873000000);
+    
+
+-- WRITE YOUR SOLUTION BELOW THIS LINE!
+    
+SELECT * FROM movies;
 
 
 
