@@ -46,4 +46,6 @@ https://docs.docker.com/reference/cli/docker/
  - run - happens at build time (to the image)
  - CMD - happens at container runtime (to the container)
 
-## Docker 
+## Docker Networking
+### View docker networks
+- docker network ls
