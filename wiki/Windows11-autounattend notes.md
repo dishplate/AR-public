@@ -1,6 +1,11 @@
 ~~~
 
-Here's a full breakdown:
+Here's a full breakdown of the file autounattend.xml and what it does.
+To use it for Windows 11 systems: Use the Microsoft official installer that makes the USB with windows 11 (pro).
+Then add the file autounattend.xml to the root of the USB.
+Boot your computer with the USB and the installation should proceed without a hitch.
+Check that your windows firewall and defender it turned on and update windows.
+Enjoy a debloated Windows 11 installation.
 
 ---
 
