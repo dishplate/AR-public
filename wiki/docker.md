@@ -32,6 +32,8 @@ https://docs.docker.com/reference/cli/docker/
 - docker run --name my-container *image*
 - docker run -d -p 80:80 my-nginx:latest # docker host:container port
 
+## Nuking everything
+ - docker system prune -a  (will delete all images without an associated container, stopped containers and unused networks)
 
 ## Notes
 - A container is a runtime instance of an image.
