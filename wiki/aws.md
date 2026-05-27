@@ -15,7 +15,7 @@ Default output format: json
 `aws s3 ls`
 
 ## Encrypt before backup ##
-gpg --symmetric --cipher-algo AES256 myfile.txt
+`gpg --symmetric --cipher-algo AES256 myfile.txt`
 Prompts for a passphrase — produces myfile.txt.gpg
 
 ## Copy files to S3 Glacier class storage ##
