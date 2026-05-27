@@ -8,3 +8,5 @@ AWS Secret Access Key: YOUR_SECRET_KEY
 Default region name: us-east-1
 Default output format: json
 ~~~
+# Verify it works
+`aws sts get-caller-identity`
