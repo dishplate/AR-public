@@ -41,7 +41,7 @@ split -b 20G - backup_part_:
 
 backup_part_: The prefix for your output files. Your final directory will fill up with files named backup_part_aa, backup_part_ab, backup_part_ac, and so on.`
 
-Stitch files back together
+## Extracint the tarball
 `cat backup_part_* | tar -xvf -`
 
 Issues with errors - use this for logging
