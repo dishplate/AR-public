@@ -41,8 +41,8 @@ split -b 20G - backup_part_:
 
 backup_part_: The prefix for your output files. Your final directory will fill up with files named backup_part_aa, backup_part_ab, backup_part_ac, and so on.`
 
-## Extracint the tarball
-`cat backup_part_* | tar -xvf -`
+## Extracting the tarball
+`cat backup_part_*.tar | tar -xvf -`
 
 Issues with errors - use this for logging
 `tar -cvf - /path/to/large_folder 2> tar_errors.log | split -b 20G - backup_part_`
