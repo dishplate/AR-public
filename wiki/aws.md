@@ -51,3 +51,27 @@ tar -tf archive.tar
 ### Create log file with list of files in the tarball (bash)
 Some errors about EOF are generated but it works
 `for f in *.tar; do tar -tf "$f" > "${f%.tar}.log"; done`
+## Testing the tarball
+`tar -tf test.tar &> /dev/null; echo $?`
+tar — the tar command
+
+-tf — two flags combined:
+
+-t — list contents of the archive
+
+-f — the next argument is the filename
+
+test.tar — the tarball to inspect
+
+&> — redirect both stdout and stderr to the same place:
+
+> alone only redirects stdout
+2> alone only redirects stderr
+&> redirects both at once (bash shorthand for 2>&1 >)
+
+/dev/null — a black hole that discards everything written to it. The tar output is thrown away — we only care whether it succeeded or failed.
+; — run the next command sequentially, regardless of whether the first command succeeded or failed (unlike && which only runs the next command if the first succeeded)
+echo $? — prints the exit code of the last command:
+
+0 = success (valid tar archive)
+non-zero = failure (corrupt, wrong format, missing file, etc.)
