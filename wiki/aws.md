@@ -49,4 +49,5 @@ Issues with errors - use this for logging
 ## Viewing files in a tarball
 tar -tf archive.tar
 ### Create log file with list of files in the tarball (bash)
+Some errors about EOF are generated but it works
 `for f in *.tar; do tar -tf "$f" > "${f%.tar}.log"; done`
