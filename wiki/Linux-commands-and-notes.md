@@ -46,4 +46,11 @@ where 
 * r = recursive i.e, search subdirectories within the current directory 
 * n = to print the line numbers to stdout 
 * i = case insensitive search 
- 
+
+## Mounting file systems
+make a folder
+mkdir /mnt/nas_mount
+sudo mount -t cifs //10.5.5.250/share /mnt/smb_share -o username=user,password=pass
+
+
+
