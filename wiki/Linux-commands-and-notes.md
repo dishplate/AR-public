@@ -49,9 +49,22 @@ where 
 
 ## Mounting file systems
 ~~~
-make a folder
-mkdir /mnt/nas_mount
-sudo mount -t cifs //10.5.5.250/share /mnt/smb_share -o username=user,password=pass
+Mount CIFS share
+Make sure the user mounting has permissions to the folders and files on the NAS.
+Make sure the user on Synology has access to the SMB/share app.
+Double check the username and password
+Make a credential file on the client system and chmod 600 the file.
+The file should contain
+username=test
+password=test123
+
+mkdir a folder and you might need to make sure that the user mounting the share has
+Access to the same folder, chown user mount_folder
+
+Command to run
+mount -t cifs -o credentials=/root/credfile //10.5.5.250/tar_files /nas_mount
+You might get some weird errors but check if it worked anyway
+dmesg to troubleshoot
 ~~~
 
 
