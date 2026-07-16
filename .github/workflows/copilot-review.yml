@@ -1,0 +1,36 @@
+name: Copilot Code Review
+
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  copilot-review:
+    runs-on: ubuntu-latest
+    # Only run when PR is from dev to main and review is approved
+    if: |
+      github.event.pull_request.base.ref == 'main' && 
+      github.event.pull_request.head.ref == 'dev' && 
+      github.event.review.state == 'approved'
+    
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run Copilot Code Review
+        uses: github/copilot-code-review-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          review-instructions: |
+            Review the changes in this pull request and provide feedback.
+            Focus on:
+            - Code quality and best practices
+            - Potential bugs or security issues
+            - Performance considerations
+            - Documentation completeness
