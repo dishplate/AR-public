@@ -23,6 +23,8 @@ on:
       - edited
       - deleted
   workflow_run:
+    workflows:
+      - Copilot Code Review
     types:
       - completed
   workflow_dispatch: {}
