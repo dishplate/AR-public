@@ -1,4 +1,5 @@
 #file to test api's
+#test
 import requests
 
 baseurl = "https://rickandmortyapi.com/api/"
