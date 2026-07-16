@@ -1,0 +1,61 @@
+name: Slack Notification
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+      - dev
+  pull_request_review:
+    types:
+      - submitted
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          EVENT_NAME: ${{ github.event_name }}
+          BRANCH_NAME: ${{ github.ref_name }}
+          PR_ACTION: ${{ github.event.action || '' }}
+          PR_BASE: ${{ github.event.pull_request.base.ref || '' }}
+          PR_HEAD: ${{ github.event.pull_request.head.ref || '' }}
+          PR_NUMBER: ${{ github.event.pull_request.number || '' }}
+          PR_TITLE: ${{ github.event.pull_request.title || '' }}
+          REVIEW_STATE: ${{ github.event.review.state || '' }}
+        run: |
+          set -e
+
+          if [ "$EVENT_NAME" = "push" ]; then
+            TEXT="Commit pushed to dev on branch $BRANCH_NAME"
+          elif [ "$EVENT_NAME" = "pull_request" ]; then
+            TEXT="Pull request ${PR_ACTION} to ${PR_BASE} from ${PR_HEAD}: #${PR_NUMBER} ${PR_TITLE}"
+          elif [ "$EVENT_NAME" = "pull_request_review" ]; then
+            if [ "$PR_BASE" != "main" ]; then
+              echo "Skipping review notification for PR base branch $PR_BASE"
+              exit 0
+            fi
+            if [ "$REVIEW_STATE" = "approved" ]; then
+              TEXT="PR approved on main: #${PR_NUMBER} ${PR_TITLE}"
+            elif [ "$REVIEW_STATE" = "changes_requested" ]; then
+              TEXT="PR review requested changes on main: #${PR_NUMBER} ${PR_TITLE}"
+            elif [ "$REVIEW_STATE" = "dismissed" ]; then
+              TEXT="PR review dismissed on main: #${PR_NUMBER} ${PR_TITLE}"
+            else
+              echo "No notification for review state: $REVIEW_STATE"
+              exit 0
+            fi
+          else
+            echo "No notification for event: $EVENT_NAME"
+            exit 0
+          fi
+
+          curl -X POST -H 'Content-Type: application/json'             --data "{\"text\":\"${TEXT}\"}"             "$SLACK_WEBHOOK_URL"
