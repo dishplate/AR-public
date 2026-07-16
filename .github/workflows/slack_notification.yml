@@ -45,13 +45,16 @@ jobs:
           PR_HEAD: ${{ github.event.pull_request.head.ref || '' }}
           PR_NUMBER: ${{ github.event.pull_request.number || '' }}
           PR_TITLE: ${{ github.event.pull_request.title || '' }}
+          PR_URL: ${{ github.event.pull_request.html_url || '' }}
           MERGED: ${{ github.event.pull_request.merged || false }}
           REVIEW_STATE: ${{ github.event.review.state || '' }}
           RELEASE_ACTION: ${{ github.event.action || '' }}
           RELEASE_TAG: ${{ github.event.release.tag_name || '' }}
           RELEASE_NAME: ${{ github.event.release.name || '' }}
+          RELEASE_URL: ${{ github.event.release.html_url || '' }}
           WORKFLOW_NAME: ${{ github.event.workflow_run.name || '' }}
           WORKFLOW_CONCLUSION: ${{ github.event.workflow_run.conclusion || '' }}
+          WORKFLOW_RUN_URL: ${{ github.event.workflow_run.html_url || '' }}
           CREATE_TYPE: ${{ github.event.ref_type || '' }}
           CREATE_REF: ${{ github.event.ref || '' }}
           DELETE_TYPE: ${{ github.event.ref_type || '' }}
@@ -63,18 +66,22 @@ jobs:
         run: |
           set -e
 
+          DETAILS=""
           if [ "$EVENT_NAME" = "push" ]; then
             TEXT="Commit pushed to dev on branch $BRANCH_NAME"
+            DETAILS="*Branch:* \\`$BRANCH_NAME\\`\n*Commit:* \\`$GITHUB_SHA\\`"
           elif [ "$EVENT_NAME" = "pull_request" ]; then
             if [ "$PR_ACTION" = "closed" ]; then
               if [ "$MERGED" = "true" ]; then
                 TEXT="Pull request merged to ${PR_BASE}: #${PR_NUMBER} ${PR_TITLE}"
+                DETAILS="*PR:* <$PR_URL|#${PR_NUMBER}>\n*Branch:* ${PR_HEAD} → ${PR_BASE}"
               else
                 echo "Skipping closed unmerged PR notification"
                 exit 0
               fi
             else
-              TEXT="Pull request ${PR_ACTION} to ${PR_BASE} from ${PR_HEAD}: #${PR_NUMBER} ${PR_TITLE}"
+              TEXT="Pull request ${PR_ACTION} to ${PR_BASE}: #${PR_NUMBER} ${PR_TITLE}"
+              DETAILS="*PR:* <$PR_URL|#${PR_NUMBER}>\n*Branch:* ${PR_HEAD} → ${PR_BASE}"
             fi
           elif [ "$EVENT_NAME" = "pull_request_review" ]; then
             if [ "$PR_BASE" != "main" ]; then
@@ -91,10 +98,13 @@ jobs:
               echo "No notification for review state: $REVIEW_STATE"
               exit 0
             fi
+            DETAILS="*PR:* <$PR_URL|#${PR_NUMBER}>\n*Review:* ${REVIEW_STATE}"
           elif [ "$EVENT_NAME" = "release" ]; then
             TEXT="Release ${RELEASE_ACTION}: ${RELEASE_NAME:-$RELEASE_TAG}"
+            DETAILS="*Release:* <$RELEASE_URL|${RELEASE_NAME:-$RELEASE_TAG}>"
           elif [ "$EVENT_NAME" = "workflow_run" ]; then
             TEXT="Workflow ${WORKFLOW_NAME} completed with ${WORKFLOW_CONCLUSION}"
+            DETAILS="*Workflow:* <$WORKFLOW_RUN_URL|${WORKFLOW_NAME}>"
           elif [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             TEXT="Manual workflow dispatch requested"
           elif [ "$EVENT_NAME" = "create" ]; then
@@ -110,6 +120,24 @@ jobs:
             exit 0
           fi
 
+          PAYLOAD=$(python - <<'PY'
+import json, os
+text = os.environ['TEXT']
+details = os.environ['DETAILS']
+blocks = [{
+    'type': 'section',
+    'text': {'type': 'mrkdwn', 'text': f'*{text}*'}
+}]
+if details:
+    blocks.append({
+        'type': 'section',
+        'text': {'type': 'mrkdwn', 'text': details}
+    })
+payload = {'text': text, 'blocks': blocks}
+print(json.dumps(payload))
+PY
+          )
+
           curl -X POST -H 'Content-Type: application/json' \
-            --data "{\"text\":\"${TEXT}\"}" \
+            --data "$PAYLOAD" \
             "$SLACK_WEBHOOK_URL"
