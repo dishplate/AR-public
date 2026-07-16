@@ -121,21 +121,21 @@ jobs:
           fi
 
           PAYLOAD=$(python - <<'PY'
-import json, os
-text = os.environ['TEXT']
-details = os.environ['DETAILS']
-blocks = [{
-    'type': 'section',
-    'text': {'type': 'mrkdwn', 'text': f'*{text}*'}
-}]
-if details:
-    blocks.append({
-        'type': 'section',
-        'text': {'type': 'mrkdwn', 'text': details}
-    })
-payload = {'text': text, 'blocks': blocks}
-print(json.dumps(payload))
-PY
+          import json, os
+          text = os.environ['TEXT']
+          details = os.environ['DETAILS']
+          blocks = [{
+              'type': 'section',
+              'text': {'type': 'mrkdwn', 'text': f'*{text}*'}
+          }]
+          if details:
+              blocks.append({
+                  'type': 'section',
+                  'text': {'type': 'mrkdwn', 'text': details}
+              })
+          payload = {'text': text, 'blocks': blocks}
+          print(json.dumps(payload))
+          PY
           )
 
           curl -X POST -H 'Content-Type: application/json' \
