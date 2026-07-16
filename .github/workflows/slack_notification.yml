@@ -122,6 +122,7 @@ jobs:
             exit 0
           fi
 
+          export TEXT DETAILS
           PAYLOAD=$(python - <<'PY'
           import json, os
           text = os.environ['TEXT']
