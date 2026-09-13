@@ -77,3 +77,37 @@ wget 10.244.0.28:3000
 Connecting to 10.244.0.28:3000 (10.244.0.28:3000)
 wget: can't connect to remote host (10.244.0.28): Connection refused
 
+# 9/13/2026
+Issue with port 3000 not working was fixed by copilot by adding this below, the volume mount part was explained by copilot
+   volumeMounts:
+        - name: nginx-config
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+      volumes:
+      - name: nginx-config
+        configMap:
+          name: nginx-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: development
+data:
+  default.conf: |
+    server {
+        listen 3000;
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html;
+        }
+    }
+
+# Explanation for above
+Maybe a difference in the couse material and the version of things I am using
+Because containerPort is just metadata — it doesn't tell the process what port to listen on.
+
+containerPort: 3000 only documents/exposes a port for Kubernetes networking (so other things like Service definitions or kubectl describe can reference it). It has zero effect on the actual nginx process inside the container.
+What actually determines the port nginx binds to is its config file, /etc/nginx/conf.d/default.conf, which contains a listen directive. The stock nginx:stable-alpine3.24 image ships with listen 80; baked into that file.
+So even though you declared containerPort: 3000, nginx itself never learned to listen on 3000 — it kept listening on 80 (which is why your original wget :80 worked and :3000 was refused).
+The volumeMounts/volumes combo is what actually overwrites that default config file with your custom one (listen 3000;) at container start, so nginx reads the new directive and binds to 3000 for real. Without mounting it, the ConfigMap existed in the cluster but was never wired into the container's filesystem, so it had no effect.
