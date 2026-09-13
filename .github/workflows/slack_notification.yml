@@ -71,7 +71,7 @@ jobs:
           DETAILS=""
           if [ "$EVENT_NAME" = "push" ]; then
             TEXT="Commit pushed to dev on branch $BRANCH_NAME"
-            DETAILS="*Branch:* \\`$BRANCH_NAME\\`\n*Commit:* \\`$GITHUB_SHA\\`"
+            DETAILS="*Branch:* \`$BRANCH_NAME\`\n*Commit:* \`$GITHUB_SHA\`"
           elif [ "$EVENT_NAME" = "pull_request" ]; then
             if [ "$PR_ACTION" = "closed" ]; then
               if [ "$MERGED" = "true" ]; then
