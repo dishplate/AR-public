@@ -77,8 +77,8 @@ wget 10.244.0.28:3000
 Connecting to 10.244.0.28:3000 (10.244.0.28:3000)
 wget: can't connect to remote host (10.244.0.28): Connection refused
 
-# 9/13/2026
-Issue with port 3000 not working was fixed by copilot by adding this below, the volume mount part was explained by copilot
+# 9/13/2026 Issue with port 3000 
+not working was fixed by copilot by adding this below, the volume mount part was explained by copilot
    volumeMounts:
         - name: nginx-config
           mountPath: /etc/nginx/conf.d/default.conf
